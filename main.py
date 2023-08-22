@@ -1,7 +1,7 @@
 import telebot
 import os
 from telebot import types
-import config
+import operations
 
 bot = telebot.TeleBot(os.getenv('TOKEN'))
 

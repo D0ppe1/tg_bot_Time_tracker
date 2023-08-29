@@ -1,28 +1,39 @@
-# import time
+import datetime
+
 
 class Job:
-    """1234"""
-    def __init__(self,job_id, date_start, date_end):
-        self.job_id = job_id
-        self.date_start = date_start
-        self.date_end = date_end
+    """docstring"""
+    job_id = None
+    date_start = None
+    date_end = None
+
 
 class User:
-    """1234"""
-    def __init__(self,user_id, chat_id, status, job):
-        self.user_id = user_id
-        self.chat_id = chat_id
-        self.status = status
-        self.job = job
+    """docstring"""
+    user_id = None
+    chat_id = None
+    status = None
+    job = None
 
     def start_work(self):
+        start_point = datetime.datetime.now()
+        print(f'Погнали: {start_point}')
+        return start_point
 
     def end_work(self):
+        end_point = datetime.datetime.now()
+        print(f'Фуух,закончили {end_point}')
+        return end_point
 
 
+# def safe():
+#
+# def load():
 
-tgbot = Job(12343, '14:27', '16:30')
-doppel = User(99999, 231235, 'pause', 'Tgbot')
+doppel = User()
+# tgbot = Job(12343, '14:27', '16:30')
+# doppel = User(99999, 'private', 'none', 'Tgbot')
 
-print(tgbot)
+
+# print(tgbot)
 print(doppel)

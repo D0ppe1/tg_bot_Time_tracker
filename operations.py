@@ -1,39 +1,66 @@
 import datetime
+import uuid
+import pickle
 
 
 class Job:
     """docstring"""
-    job_id = None
-    date_start = None
-    date_end = None
+
+    def __init__(self):
+        self.job_id = uuid.uuid4()
+        self.date_start = datetime.datetime.now()
+        self.date_end = None
+
+    def stop(self):
+        self.date_end = datetime.datetime.now()
+
+    def is_active(self) -> bool:
+        return not bool(self.date_end)
 
 
 class User:
     """docstring"""
-    user_id = None
-    chat_id = None
-    status = None
-    job = None
+
+    def __init__(self, user_id):
+        self.user_id = user_id
+        self.old_jobs = []
+        self.job = None
 
     def start_work(self):
-        start_point = datetime.datetime.now()
-        print(f'Погнали: {start_point}')
-        return start_point
+        self.job = Job()
 
     def end_work(self):
-        end_point = datetime.datetime.now()
-        print(f'Фуух,закончили {end_point}')
-        return end_point
+        if self.job.is_active():
+            self.job.stop()
+            self.old_jobs.append(self.job)
+            self.job = None
 
 
-# def safe():
-#
-# def load():
+def save(data):
+    '''
+    Func so save data with pickle
+    :param data: dict
+    :return:
+    '''
+    try:
+        with open('data.pickle', 'wb') as f:
+            pickle.dump(data, f)
+    except:
+        print('Ошибка при сохранении данных')
 
-doppel = User()
-# tgbot = Job(12343, '14:27', '16:30')
-# doppel = User(99999, 'private', 'none', 'Tgbot')
 
-
-# print(tgbot)
-print(doppel)
+def load():
+    '''
+    Func so load data with pickle
+    :return: data{} or empty{}
+    '''
+    try:
+        with open('data.pickle', 'rb') as f:
+            data = pickle.load(f)
+    except:
+        print('Ошибка при загрузке данных')
+    # isinstance проверяет чтобы "data" была "dict",т.е. загружаемый файл был словарем
+    if isinstance(data, dict):
+        return data
+    else:
+        return {}
